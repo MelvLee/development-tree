@@ -1,0 +1,11 @@
+audit:
+  branches:
+    '*':
+      discovery:
+        search:
+          - 'dist/oas/openapi.yaml'
+      fail_on:
+        score:
+          data: 30 # max: 70
+          security: 10 # max: 30
+
