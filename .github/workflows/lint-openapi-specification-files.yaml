@@ -1,0 +1,23 @@
+name: lint OpenAPI specification files
+
+on:
+  push:
+    paths:
+    - src/oas/**/*.yaml
+    - .github/workflows/lint-openapi-specification-files.yaml
+  workflow_dispatch:
+
+jobs:
+  lint-oas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: Install dependencies
+        run: npm install
+      - name: Lint OpenAPI specification files
+        run: npm run oas:lint
+
