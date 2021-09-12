@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "cz:commit": "cz",
-    "oas:lint": "spectral lint src/oas/**/*.yaml"
+    "oas:lint": "spectral lint src/oas/**/*.yaml",
+    "oas:bundle-yaml": "openapi bundle --output dist/oas/openapi.yaml src/oas/openapi.yaml"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +15,7 @@
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
+    "@redocly/openapi-cli": "^1.0.0-beta.58",
     "@stoplight/spectral-cli": "^6.0.0",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.2.0",

@@ -1,0 +1,33 @@
+name: security scan OpenAPI specification files
+on:
+  workflow_run:
+    workflows:
+    - "lint OpenAPI specification files"
+    types:
+    - completed
+  push:
+    paths:
+    - .github/workflows/security-scan-openapi-specification-files.yaml
+  workflow_dispatch:
+
+jobs:
+  static-security-scan-oas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: Install dependencies
+        run: npm install
+      - name: Bundle OpenAPI specification files
+        run: npm run oas:bundle-yaml
+      - name: 42Crunch REST API Static Security Testing
+        uses: 42Crunch/api-security-audit-action@v2
+        with:
+          api-token: ${{ secrets.SECURITY_SCAN_API_TOKEN }}
+          upload-to-code-scanning: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          log-level: DEBUG
+
